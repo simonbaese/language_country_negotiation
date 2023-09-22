@@ -4,5 +4,5 @@ A **Drupal** module that provides an additional country-dependent language negot
 
 ## Maintainer
 
-Simon Bäse
-Anna Demianik
+- Simon Bäse
+- Anna Demianik
