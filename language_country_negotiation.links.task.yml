@@ -1,0 +1,4 @@
+language_country_negotiation.fallbacks:
+  title: 'Language-country fallbacks'
+  route_name: language_country_negotiation.fallbacks
+  base_route: entity.configurable_language.collection

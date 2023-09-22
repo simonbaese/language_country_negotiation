@@ -1,0 +1,15 @@
+language_country_negotiation.language_country_url:
+  path: '/admin/config/regional/language/detection/language-country'
+  defaults:
+    _form: '\Drupal\language_country_negotiation\Form\NegotiationLanguageCountryUrlForm'
+    _title: 'URL language-country detection configuration'
+  requirements:
+    _permission: 'administer languages'
+
+language_country_negotiation.fallbacks:
+  path: '/admin/config/regional/language/language-country-fallbacks'
+  defaults:
+    _form: '\Drupal\language_country_negotiation\Form\LanguageCountryFallbacksForm'
+    _title: 'Language-country fallbacks'
+  requirements:
+    _permission: 'administer languages'

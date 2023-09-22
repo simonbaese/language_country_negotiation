@@ -1,0 +1,51 @@
+services:
+
+  # Country services
+  language_country_negotiation.current_country:
+    class: Drupal\language_country_negotiation\Service\CurrentCountry
+
+  language_country_negotiation.country_manager:
+    class: Drupal\language_country_negotiation\Service\CountryManager
+    arguments: [
+      '@language_country_negotiation.country_repository',
+      '@language_country_negotiation.current_country',
+    ]
+
+  language_country_negotiation.country_repository:
+    class: Drupal\language_country_negotiation\Service\CountryRepository
+    arguments: [
+      '@entity_type.manager',
+      '@language_manager',
+      '@logger.channel.language_country_negotiation',
+    ]
+
+  # Event subscriber
+  language_country_negotiation.country_event_subscriber:
+    class: Drupal\language_country_negotiation\EventSubscriber\CountryEventSubscriber
+    arguments: [
+      '@language_country_negotiation.country_manager',
+      '@language_country_negotiation.current_country',
+    ]
+    tags:
+      - { name: event_subscriber }
+
+  language_country_negotiation.request_fallback_event_subscriber:
+    class: Drupal\language_country_negotiation\EventSubscriber\RequestFallbackEventSubscriber
+    arguments: [
+      '@config.factory',
+      '@language_country_negotiation.country_manager',
+      '@page_cache_kill_switch',
+    ]
+    tags:
+      - { name: event_subscriber }
+
+  # Misc
+  logger.channel.language_country_negotiation:
+    parent: logger.channel_base
+    arguments: [ 'language_country_negotiation' ]
+
+  cache_context.current_country:
+    class: Drupal\language_country_negotiation\Cache\Context\CountryCacheContext
+    arguments: ['@language_country_negotiation.current_country']
+    tags:
+      - { name: cache.context }

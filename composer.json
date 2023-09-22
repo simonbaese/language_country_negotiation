@@ -1,0 +1,24 @@
+{
+    "name": "drupal/language_country_negotiation",
+    "description": "Provides an additional country-dependent language negotiation plugin.",
+    "type": "drupal-module",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://drupal.org/project/language_country_negotiation",
+    "authors": [
+        {
+            "name": "Simon Bäse",
+            "homepage": "https://www.drupal.org/u/simonbaese"
+        },
+        {
+            "name": "Anna Demianik",
+            "homepage": "https://www.drupal.org/u/anna-d"
+        }
+    ],
+    "support": {
+        "source": "https://git.drupalcode.org/project/language_country_negotiation",
+        "issues": "https://www.drupal.org/project/issues/language_country_negotiation"
+    },
+    "require": {
+        "drupal/core": "^9.3 || ^10"
+    }
+}

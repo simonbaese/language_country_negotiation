@@ -1,0 +1,10 @@
+name: Language-Country Negotiation
+type: module
+description: Provides an additional country-dependent language negotiation plugin.
+package: Multilingual
+core_version_requirement: ^9.3 || ^10
+configure: language_country_negotiation
+dependencies:
+  - drupal:locale
+  - drupal:path_alias
+  - drupal:taxonomy

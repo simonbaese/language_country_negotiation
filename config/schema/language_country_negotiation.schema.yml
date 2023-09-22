@@ -1,0 +1,24 @@
+language_country_negotiation.negotiation:
+  type: config_object
+  label: 'Language-country negotiation settings'
+  mapping:
+    prefix_pattern:
+      type: string
+      label: 'Pattern for language-country prefix'
+    exclude_admin_pages:
+      type: boolean
+      label: 'Exclude admin pages'
+    strict_negotiation:
+      type: boolean
+      label: 'Strict negotiation'
+
+language_country_negotiation.fallbacks:
+  type: config_object
+  label: 'Language-country fallbacks settings'
+  mapping:
+    use_fallback_alias_manager:
+      type: boolean
+      label: 'Use fallback alias manager'
+    use_request_fallback:
+      type: boolean
+      label: 'Use request fallback'

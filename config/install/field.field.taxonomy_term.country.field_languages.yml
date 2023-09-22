@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_languages
+    - taxonomy.vocabulary.country
+third_party_settings: { }
+id: taxonomy_term.country.field_languages
+field_name: field_languages
+entity_type: taxonomy_term
+bundle: country
+label: Languages
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:configurable_language'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: entity_reference

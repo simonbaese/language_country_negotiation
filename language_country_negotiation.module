@@ -1,0 +1,83 @@
+<?php
+
+/**
+ * @file
+ * Hook implementations for language_country_negotiation module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Language\LanguageInterface;
+use Drupal\language_country_negotiation\Entity\CountryTerm;
+use Drupal\language_country_negotiation\Plugin\LanguageNegotiation\LanguageNegotiationLanguageCountryUrl;
+
+/**
+ * Implements hook_theme().
+ */
+function language_country_negotiation_theme($existing, $type, $theme, $path) {
+  return [
+    'country_switcher_block' => [
+      'variables' => [
+        'links' => [],
+        'current_country' => [],
+        'id' => [],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_entity_bundle_info_alter().
+ */
+function language_country_negotiation_entity_bundle_info_alter(array &$bundles): void {
+  if (isset($bundles['taxonomy_term'][CountryTerm::VOCABULARY])) {
+    $bundles['taxonomy_term'][CountryTerm::VOCABULARY]['class'] = CountryTerm::class;
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function language_country_negotiation_form_taxonomy_term_country_form_alter(&$form, FormStateInterface $form_state): void {
+  $form["#after_build"][] = 'language_country_negotiation_form_taxonomy_term_country_form_language_options';
+}
+
+/**
+ * Hides language options "Not applicable" and "Not specified".
+ */
+function language_country_negotiation_form_taxonomy_term_country_form_language_options(array $form, FormStateInterface $form_state): array {
+
+  $denied_langcodes = [
+    LanguageInterface::LANGCODE_NOT_SPECIFIED,
+    LanguageInterface::LANGCODE_NOT_APPLICABLE,
+  ];
+
+  // @todo Adjust for more widgets.
+  // Prefer available options if present.
+  if (array_key_exists('available', $form['field_languages']['widget'])) {
+    $options = &$form['field_languages']['widget']['available']['#items'];
+    foreach ($options ?? [] as $langcode => $option) {
+      if (in_array($langcode, $denied_langcodes, TRUE)) {
+        unset($options[$langcode]);
+      }
+    }
+  }
+  else {
+    foreach ($form['field_languages']['widget']['#options'] ?? [] as $langcode => $option) {
+      if (in_array($langcode, $denied_langcodes, TRUE)) {
+        unset($form['field_languages']['widget'][$langcode]);
+      }
+    }
+  }
+
+  return $form;
+}
+
+/**
+ * Implements hook_language_types_info_alter().
+ *
+ * Registers fixed language-country negotiation methods for TYPE_URL.
+ */
+function language_country_negotiation_language_types_info_alter(array &$language_types) {
+  array_unshift($language_types[LanguageInterface::TYPE_URL]['fixed'],
+    LanguageNegotiationLanguageCountryUrl::METHOD_ID);
+}

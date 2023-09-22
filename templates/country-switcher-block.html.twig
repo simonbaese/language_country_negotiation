@@ -1,0 +1,18 @@
+{#
+* Available variables:
+* - links: Multidimensional array with the continents and countries.
+*   - url: The Url to the country with the language.
+*   - name: The name of the country, TranslatableMarkup object.
+*   - code: The code of the country.
+* - current_country: Array with the name and code of the current country.
+*   - name: Name of the current country.
+*   - code: Code of the current country.
+#}
+{% if links -%}
+  {%- for item in links -%}
+    <h2>{{ item.label }}</h2>
+    {%- for country in item.countries -%}
+      <li><a href="{{ country.url }}">{{ country.name }}</a></li>
+    {%- endfor -%}
+  {%- endfor -%}
+{%- endif %}

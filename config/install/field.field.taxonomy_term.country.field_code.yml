@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_code
+    - taxonomy.vocabulary.country
+third_party_settings: { }
+id: taxonomy_term.country.field_code
+field_name: field_code
+entity_type: taxonomy_term
+bundle: country
+label: Code
+description: 'The code of the country in lowercase, for example ''de'' for Germany. Or ''und'' (undefined) for continent.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
